@@ -1,0 +1,121 @@
+WirelessThings LaunchPad from Ciseco
+For full detaisl of code changes please see the git commit history at https://github.com/WirelessThings/WirelessThings-LaunchPad
+
+0.16:
+    DeviceConfigurationWizard: Auto set new Interrupt sleeping device to sleep on first config, fixes #17
+    MessageBridge: added the RadioFirmwareVersion reading #27
+    Examples: fix filterUDPListen
+    init.d: Add status check for the messagebridge init script
+    LaunchPad: Rework of the PasswordDialog. Added Cancel button
+    LaunchPad: Check if sudo is needed before stop/restart an app
+
+
+0.15:
+    BREAKING CHANGE: LaunchPad Auto update process has had some heavy rework so the update from 0.14 to 0.15 must be done as a full reinstall
+    MessageBrdige: New User and defualt config file setup
+    LaunchPad: change the debugPrint to use the logger functions
+    DCW: If APVER 2.1 query DVI and display
+    LaunchPad: Catch Ctrl+C from console
+    LaunchPad: Check the screen geometry to always use the main monitor to open the application
+    LaunchPad: Add new post update routine
+    ConfigurationWizard & MessageBridge: MessageBridge Name Clash shows a message to user and disable the button
+    MessageBridge: Improve the ATLH1 tests
+    LaunchPad: make UPD recv buffer larger
+    Lots of typos and minor TODOs cleaned up
+
+0.14:
+    ConfigurationWizard: now downlaods latest Devices.json from the net at launch
+    MessageBridge: Better handeling of AT command mode
+    MessageBridge: Now reads PANID and Encryption setting from the attached radio
+    ConfigurationWizard: Handle unknown device DTY
+    ConfigurationWizard: Check CHDEVID length and match when leaving editable CHDEVID screens
+    LanguageofThings: APVER 2.1 command added and add ProtocolFrom field to commands
+    Devices: updated to latest
+    LaunchPad: Fixed the selection on the Listbox at start
+    AT: waitForResponse return fixed
+    MessageBrige: Now logs Language of Things message to rotating CSV log files
+    encryptionSetup: new helper tool to configure radio network PANID and encryption settings
+    Documentation: Raspbery Pi User Guide added
+    LaunchPad: Update download server
+
+0.13:
+    Licensed under the Apache License, Version 2.0
+    Big rename
+    With 0.13 there are sevral breaking chnages the most revelent for anyone running pervoius version is the changes to the JSON over UDP message "type" field
+    LLAP    > WirelessMessage
+    LCR     > DeviceConfigurationRequest  
+    Server  > MessageBridge
+    
+0.12:
+    UDPUI, Server, JSON: Change case on Server.state
+    UDPUI: incoming Server JSON error check
+    Server: Add command line port override
+    UDPUI: allow old and new Running states to be recognised
+    JSON: Adding RGB device
+    JSON: Cleanup
+    Server: Correct Thread restart code
+    JSON: add humidity device
+    Server: Request version number over JSON
+    AT: typo
+    JSON: new devices and correct FVER format
+
+0.11:
+    UDPUI: Reset defaults button is working again
+    UDPUI: Correctly set SLEEPM when using the slider
+    Server: Don't modify the toQuery in an LCR
+    JSON: new device AAAB02 and update ENKey descriptions
+    Server & UDPUI: Automatic setting of PANID and Encryption for new devices
+    UDPUI: Handle network settings for reconfiguring devices
+    PY2EXE: update to include icon
+
+0.10:
+    Server: Implement in memory DeviceStore, records last message and time stamp for against and ID
+    UDPUI: getNextFreID placeholder
+    UDPUI: working Listbox of previous seen ID's from hub
+    UUDPUI: Generate next free ID from DeviceStore
+
+0.09:
+    Server: filter all types of JSON by network not just LLAP
+    Server: expand Server type messages
+    UDPUI: First pass at Server list on fist screen
+    Server & UDPUI: Reduce default timeout for LCR
+    Launcher: Correct Server messages to include network field
+    UDPUI: add new press button screen
+    UDPUI: track config state in app, use random UUID's to track LCR messages
+    UDPUI: check LCR replay is valid sooner in the processing
+    UDPUI: Improve Back button handling
+    UDPUI: Adding new Simple config and device ID screens
+    JSON: Add missing RSSI command
+    JSON: Update actions for Switch and Flood
+    JSON: add Reporting Period field and definition
+    UDPUI: Implement Reporting Period Slider and link to INTVL
+    JSON: Adding Power and Antenna classifications. Reporting Period descriptions update and Device name changes
+    UDPUI: Adding More Info buttons and window
+
+0.08:
+    Server: Don't need singalMap on windows
+    Server: report Network in server status messages
+    JSON: Add Sleep modes description and missing CONFIGON command
+    UDPUI: Correct Sleepmode display for Interrupt devices
+    PY2EXE: first pass at setup file for windows
+    PY2EXE: needs copies of the included modules for now
+
+0.07:
+    JSON: Update for all the current device firmwares
+
+0.06:
+    Server: move AT into module DIR
+    Server: Update documentation in settings file
+    Server: Missing return's cause radio clash of DTY and keep alive HELLO's
+    UDPUI: Added Readme. Fix to catch multiple server replies. Typo's, extra debug tracking
+    JSON: adding new devices, Switch, Relay, Light
+	JSON: Adding ActionsType description, new Devices Light and Pulse Counter
+
+0.05:
+    UDPUI: update to condense first two screens
+
+0.04:
+    Server & UDPUI: fix handeling on ENACK replies
+
+0.03:
+    First beta of zip file

@@ -1,0 +1,83 @@
+#! /bin/bash
+# Copyright (c) 2014 Ciseco.
+# All rights reserved.
+#
+# Author: Matt Lloyd
+#
+# /etc/init.d/messagebridge
+#
+### BEGIN INIT INFO
+# Provides: messagebridge
+# Required-Start: $all
+# Required-Stop: $remotefs $syslog
+# Default-Start:  2 3 4 5
+# Default-Stop:   0 1 6
+# Short-Description: WirelessThings Message Bridge
+# Description:    WirelessThings Message Bridge to pass Language of Things trafic between serial and UDP interfaces
+### END INIT INFO
+. /lib/lsb/init-functions
+###
+# This line will be auto updated with the path to your current install path
+# by WirelessThings Launchpad on clicking the Enable Autostart button
+cd /home/pi/MessageBridge
+###
+
+case "$1" in
+  start)
+    status=$(python ./MessageBridge.py status)
+    if [[ $status =~ "PID" ]]; then
+      log_success_msg "Message Bridge already running"
+    else
+      python ./MessageBridge.py start
+      status=$(python ./MessageBridge.py status)
+      if [[ $status =~ "PID" ]]; then
+        log_success_msg "Starting Message Bridge"
+      else
+        log_failure_msg "Starting Message Bridge"
+      fi
+    fi
+    ;;
+  stop)
+    status=$(python ./MessageBridge.py status)
+    if [[ $status =~ "PID" ]]; then
+      stop=$(python ./MessageBridge.py stop 2>&1)
+      if [[ $stop ]]; then
+        echo $stop
+        log_failure_msg "Stopping Message Bridge"
+      else
+        log_success_msg "Stopping Message Bridge"
+      fi
+    else
+      log_success_msg "Message Bridge already stopped"
+    fi
+    ;;
+  restart)
+    restart=$(python ./MessageBridge.py restart 2>&1)
+    if [[ $restart ]]; then
+      echo $restart
+      log_failure_msg "Restarting Message Bridge"
+    else
+      status=$(python ./MessageBridge.py status)
+      if [[ $status =~ "PID" ]]; then
+        log_success_msg "Restarting Message Bridge"
+      else
+        log_failure_msg "Restarting Message Bridge"
+      fi
+    fi
+    ;;
+  status)
+    status=$(python ./MessageBridge.py status)
+    if [[ $status =~ "PID" ]]; then
+      log_success_msg "Message Bridge is running"
+    else
+      log_failure_msg "Message Bridge not running"
+    fi
+    ;;
+  *)
+    # Ignore everything else
+    echo "Usage: /etc/init.d/messagebridge {start|stop|restart|status}"
+    exit 1
+    ;;
+esac
+
+exit 0
